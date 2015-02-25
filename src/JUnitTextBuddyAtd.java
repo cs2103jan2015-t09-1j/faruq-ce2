@@ -14,9 +14,29 @@ public class JUnitTextBuddyAtd {
 		Command cmdAdd = new CommandAddImpl(ui, data);
 		Command cmdDisplay = new CommandDisplayImpl(ui, data);
 		
-		cmdAdd.processCommand("add Hello World");
-		cmdDisplay.processCommand("display");
+		// let the testing begin
+		String input = "Hello World";
 		
-		assertEquals(ui.getLastOutput(), "1. Hello World");
+		cmdAdd.processCommand("add " + input);
+		assertEquals(ui.getLastOutput(), "added to " + data.getStorageFileName() + ": \"" + input + "\"");
+		
+		cmdDisplay.processCommand("display");
+		assertEquals(ui.getLastOutput(), "1. " + input);
+		
+		input = "Hello 2";
+		
+		cmdAdd.processCommand("add " + input);
+		assertEquals(ui.getLastOutput(), "added to " + data.getStorageFileName() + ": \"" + input + "\"");
+		
+		cmdDisplay.processCommand("display");
+		assertEquals(ui.getLastOutput(), "2. " + input);
+		
+		input = "Hello 3";
+		
+		cmdAdd.processCommand("add " + input);
+		assertEquals(ui.getLastOutput(), "added to " + data.getStorageFileName() + ": \"" + input + "\"");
+		
+		cmdDisplay.processCommand("display");
+		assertEquals(ui.getLastOutput(), "3. " + input);
 	}
 }
