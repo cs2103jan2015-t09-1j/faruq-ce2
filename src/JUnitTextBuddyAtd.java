@@ -121,7 +121,7 @@ public class JUnitTextBuddyAtd {
 		assertEquals(ui.getLastOutput(), "added to " + data.getStorageFileName() + ": \"" + input + "\"");
 		
 		cmdDisplay.processCommand("display");
-		assertEquals(ui.getLastOutput(), "3. " + input);
+		assertEquals(ui.getLastOutput(), "4. " + input);
 		
 		input = "Defg";
 		
@@ -129,7 +129,7 @@ public class JUnitTextBuddyAtd {
 		assertEquals(ui.getLastOutput(), "added to " + data.getStorageFileName() + ": \"" + input + "\"");
 		
 		cmdDisplay.processCommand("display");
-		assertEquals(ui.getLastOutput(), "4. " + input);
+		assertEquals(ui.getLastOutput(), "5. " + input);
 		
 		// perform a sort
 		cmdSort.processCommand("sort");
