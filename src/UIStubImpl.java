@@ -35,8 +35,17 @@ public class UIStubImpl implements UI {
 		return output.get(output.size()-1);
 	}
 	
+	public String getOutputAtLine(int i) {
+		if (i >= output.size()) return null;
+		return output.get(i);
+	}
+	
 	public ArrayList<String> getOutput() {
 		return output;
+	}
+	
+	public void clearOutput() {
+		output.clear();
 	}
 
 	@Override

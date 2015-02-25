@@ -48,6 +48,7 @@ public class ControllerMainImpl implements Controller {
 				new CommandDeleteImpl(ui, data),
 				new CommandDisplayImpl(ui, data),
 				new CommandClearImpl(ui, data),
+				new CommandSearchImpl(ui, data),
 				new CommandExitImpl(ui, data)
 		};	
 		
