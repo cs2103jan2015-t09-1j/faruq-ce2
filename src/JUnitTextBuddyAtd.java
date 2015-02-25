@@ -99,7 +99,7 @@ public class JUnitTextBuddyAtd {
 		cmdDisplay.processCommand("display");
 		assertEquals(ui.getLastOutput(), "1. " + input);
 		
-		input = "Abc";
+		input = "abc";
 		
 		cmdAdd.processCommand("add " + input);
 		assertEquals(ui.getLastOutput(), "added to " + data.getStorageFileName() + ": \"" + input + "\"");
