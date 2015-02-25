@@ -40,7 +40,7 @@ public class CommandSortImpl extends Command {
 	private ArrayList<String> sortLines(List<String> lines) {
 		ArrayList<String> sortedLines = new ArrayList<String>();
 		sortedLines.addAll(lines);
-		Collections.sort(sortedLines);
+		Collections.sort(sortedLines, String.CASE_INSENSITIVE_ORDER);
 		
 		return sortedLines;
 	}
