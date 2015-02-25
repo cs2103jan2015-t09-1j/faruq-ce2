@@ -17,12 +17,13 @@ public class CommandSortImpl extends Command {
 	public boolean processCommand(String cmd) {
 		if (!cmd.equals(commandStart)) return false;
 		
+		// read data from storage, sort the data, then overwrite the storage file with the sorted data
 		try {
 			List<String> lines = data.readFile();
 			if (lines.size() == 0) {
 				ui.printMessage(data.getStorageFileName() + " is empty");
 			} else {
-				ArrayList<String> sortedLines = sort(lines);
+				ArrayList<String> sortedLines = sortLines(lines);
 				data.clearFile();
 				for (String line : sortedLines) {
 					data.appendFile(line);
@@ -36,7 +37,7 @@ public class CommandSortImpl extends Command {
 		return true;
 	}
 	
-	private ArrayList<String> sort(List<String> lines) {
+	private ArrayList<String> sortLines(List<String> lines) {
 		ArrayList<String> sortedLines = new ArrayList<String>();
 		sortedLines.addAll(lines);
 		Collections.sort(sortedLines);

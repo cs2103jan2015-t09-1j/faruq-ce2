@@ -26,6 +26,7 @@ public class CommandSearchImpl extends Command {
 		// ensure we only take the first word found into account
 		word = word.split(" ")[0].trim();
 		
+		// read data from storage, then perform a search
 		try {
 			List<String> lines = data.readFile();
 			if (lines.size() == 0) {
