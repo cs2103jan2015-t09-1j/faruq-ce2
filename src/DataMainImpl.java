@@ -24,17 +24,17 @@ public class DataMainImpl implements Data {
 	}
 	
 	public ArrayList<String> readFile() throws IOException {
-		ArrayList<String> data = new ArrayList<>();
+		ArrayList<String> lines = new ArrayList<>();
 		
 		InputStream in = Files.newInputStream(storageFile.toPath());
 	    BufferedReader reader = new BufferedReader(new InputStreamReader(in));
 	    String line = null;
 	    while ((line = reader.readLine()) != null) {
-	        data.add(line);
+	        lines.add(line);
 	    }
 	    in.close();
 	    
-	    return data;
+	    return lines;
 	}
 	
 	public void appendFile(String line) throws IOException {
@@ -45,17 +45,17 @@ public class DataMainImpl implements Data {
 	}
 	
 	public String deleteLineFromFile(int lineToDelete) throws IOException {
-		List<String> data = readFile();
-		if (lineToDelete >= data.size()) {
+		List<String> lines = readFile();
+		if (lineToDelete >= lines.size()) {
 			throw new LineNotFoundException();
 		} else {
-			String line = data.get(lineToDelete);
+			String line = lines.get(lineToDelete);
 			
 			clearFile();
-			for (int i = 0; i < data.size(); i++) {
+			for (int i = 0; i < lines.size(); i++) {
 				if (i == lineToDelete) continue;
 				
-				appendFile(data.get(i));
+				appendFile(lines.get(i));
 			}
 			
 			return line;
