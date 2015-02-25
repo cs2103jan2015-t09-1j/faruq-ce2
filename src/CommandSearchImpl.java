@@ -18,6 +18,14 @@ public class CommandSearchImpl extends Command {
 		
 		String word = cmd.substring(commandStart.length());
 		
+		if (word.trim().equals("")) {
+			ui.printError("Please specify the word to search for.");
+			return true;
+		}
+		
+		// ensure we only take the first word found into account
+		word = word.split(" ")[0].trim();
+		
 		try {
 			List<String> lines = data.readFile();
 			if (lines.size() == 0) {
