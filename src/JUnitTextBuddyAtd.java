@@ -21,9 +21,6 @@ public class JUnitTextBuddyAtd {
 		UIStubImpl ui = new UIStubImpl();
 		Data data = new DataStubImpl();
 		
-		// setup needed commands
-		Command cmdDisplay = new CommandDisplayImpl(ui, data);
-		
 		// let the testing begin
 		addLineAndAssert(ui, data, 1, "Hello World");
 		addLineAndAssert(ui, data, 2, "Hello 2");
@@ -37,7 +34,6 @@ public class JUnitTextBuddyAtd {
 		Data data = new DataStubImpl();
 		
 		// setup needed commands
-		Command cmdDisplay = new CommandDisplayImpl(ui, data);
 		Command cmdSearch = new CommandSearchImpl(ui, data);
 		
 		// let the testing begin
