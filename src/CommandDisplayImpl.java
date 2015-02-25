@@ -31,9 +31,9 @@ public class CommandDisplayImpl extends Command {
 		return true;
 	}
 	
-	private void displayLines(List<String> data) {
-		for (int i = 0; i < data.size(); i++) {
-			ui.printMessage((i+1) + ". " + data.get(i));
+	private void displayLines(List<String> lines) {
+		for (int i = 0; i < lines.size(); i++) {
+			ui.printMessage((i+1) + ". " + lines.get(i));
 		}
 	}
 
