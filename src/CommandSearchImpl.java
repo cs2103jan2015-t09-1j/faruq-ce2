@@ -16,6 +16,28 @@ public class CommandSearchImpl extends Command {
 	public boolean processCommand(String cmd) {
 		if (!cmd.startsWith(commandStart)) return false;
 		
+		String word = cmd.substring(commandStart.length());
+		
+		try {
+			List<String> lines = data.readFile();
+			if (lines.size() == 0) {
+				ui.printMessage(data.getStorageFileName() + " is empty");
+			} else {
+				searchForWordAndPrint(lines, word);
+			}
+		} catch (IOException e) {
+			ui.printError("Failed to read data file.");
+			e.printStackTrace();
+		}
+		
 		return true;
+	}
+	
+	private void searchForWordAndPrint(List<String> lines, String word) {
+		for (int i = 0; i < lines.size(); i++) {
+			if (lines.get(i).toLowerCase().contains(word.toLowerCase())) {
+				ui.printMessage((i+1) + ". " + lines.get(i));
+			}
+		}
 	}
 }
