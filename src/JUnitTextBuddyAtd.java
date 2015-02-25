@@ -4,6 +4,17 @@ import org.junit.Test;
 
 public class JUnitTextBuddyAtd {
 
+	private void addLineAndAssert(UIStubImpl ui, Data data, int index, String line) {
+		Command cmdAdd = new CommandAddImpl(ui, data);
+		Command cmdDisplay = new CommandDisplayImpl(ui, data);
+		
+		cmdAdd.processCommand("add " + line);
+		assertEquals(ui.getLastOutput(), "added to " + data.getStorageFileName() + ": \"" + line + "\"");
+		
+		cmdDisplay.processCommand("display");
+		assertEquals(ui.getLastOutput(), index + ". " + line);
+	}
+	
 	@Test
 	public void testCommandAdd() {
 		// setup environment
@@ -11,33 +22,12 @@ public class JUnitTextBuddyAtd {
 		Data data = new DataStubImpl();
 		
 		// setup needed commands
-		Command cmdAdd = new CommandAddImpl(ui, data);
 		Command cmdDisplay = new CommandDisplayImpl(ui, data);
 		
 		// let the testing begin
-		String input = "Hello World";
-		
-		cmdAdd.processCommand("add " + input);
-		assertEquals(ui.getLastOutput(), "added to " + data.getStorageFileName() + ": \"" + input + "\"");
-		
-		cmdDisplay.processCommand("display");
-		assertEquals(ui.getLastOutput(), "1. " + input);
-		
-		input = "Hello 2";
-		
-		cmdAdd.processCommand("add " + input);
-		assertEquals(ui.getLastOutput(), "added to " + data.getStorageFileName() + ": \"" + input + "\"");
-		
-		cmdDisplay.processCommand("display");
-		assertEquals(ui.getLastOutput(), "2. " + input);
-		
-		input = "Hello 3";
-		
-		cmdAdd.processCommand("add " + input);
-		assertEquals(ui.getLastOutput(), "added to " + data.getStorageFileName() + ": \"" + input + "\"");
-		
-		cmdDisplay.processCommand("display");
-		assertEquals(ui.getLastOutput(), "3. " + input);
+		addLineAndAssert(ui, data, 1, "Hello World");
+		addLineAndAssert(ui, data, 2, "Hello 2");
+		addLineAndAssert(ui, data, 3, "Hello 3");
 	}
 	
 	@Test
@@ -47,26 +37,12 @@ public class JUnitTextBuddyAtd {
 		Data data = new DataStubImpl();
 		
 		// setup needed commands
-		Command cmdAdd = new CommandAddImpl(ui, data);
 		Command cmdDisplay = new CommandDisplayImpl(ui, data);
 		Command cmdSearch = new CommandSearchImpl(ui, data);
 		
 		// let the testing begin
-		String input = "Hello World";
-		
-		cmdAdd.processCommand("add " + input);
-		assertEquals(ui.getLastOutput(), "added to " + data.getStorageFileName() + ": \"" + input + "\"");
-		
-		cmdDisplay.processCommand("display");
-		assertEquals(ui.getLastOutput(), "1. " + input);
-		
-		input = "Hello 2";
-		
-		cmdAdd.processCommand("add " + input);
-		assertEquals(ui.getLastOutput(), "added to " + data.getStorageFileName() + ": \"" + input + "\"");
-		
-		cmdDisplay.processCommand("display");
-		assertEquals(ui.getLastOutput(), "2. " + input);
+		addLineAndAssert(ui, data, 1, "Hello World");
+		addLineAndAssert(ui, data, 2, "Hello 2");
 		
 		// perform a search
 		ui.clearOutput();
@@ -86,50 +62,14 @@ public class JUnitTextBuddyAtd {
 		Data data = new DataStubImpl();
 		
 		// setup needed commands
-		Command cmdAdd = new CommandAddImpl(ui, data);
 		Command cmdDisplay = new CommandDisplayImpl(ui, data);
 		Command cmdSort = new CommandSortImpl(ui, data);
 		
-		// let the testing begin
-		String input = "Zyx";
-		
-		cmdAdd.processCommand("add " + input);
-		assertEquals(ui.getLastOutput(), "added to " + data.getStorageFileName() + ": \"" + input + "\"");
-		
-		cmdDisplay.processCommand("display");
-		assertEquals(ui.getLastOutput(), "1. " + input);
-		
-		input = "abc";
-		
-		cmdAdd.processCommand("add " + input);
-		assertEquals(ui.getLastOutput(), "added to " + data.getStorageFileName() + ": \"" + input + "\"");
-		
-		cmdDisplay.processCommand("display");
-		assertEquals(ui.getLastOutput(), "2. " + input);
-		
-		input = "123";
-		
-		cmdAdd.processCommand("add " + input);
-		assertEquals(ui.getLastOutput(), "added to " + data.getStorageFileName() + ": \"" + input + "\"");
-		
-		cmdDisplay.processCommand("display");
-		assertEquals(ui.getLastOutput(), "3. " + input);
-		
-		input = "Hijk";
-		
-		cmdAdd.processCommand("add " + input);
-		assertEquals(ui.getLastOutput(), "added to " + data.getStorageFileName() + ": \"" + input + "\"");
-		
-		cmdDisplay.processCommand("display");
-		assertEquals(ui.getLastOutput(), "4. " + input);
-		
-		input = "Defg";
-		
-		cmdAdd.processCommand("add " + input);
-		assertEquals(ui.getLastOutput(), "added to " + data.getStorageFileName() + ": \"" + input + "\"");
-		
-		cmdDisplay.processCommand("display");
-		assertEquals(ui.getLastOutput(), "5. " + input);
+		addLineAndAssert(ui, data, 1, "Zyx");
+		addLineAndAssert(ui, data, 2, "abc");
+		addLineAndAssert(ui, data, 3, "123");
+		addLineAndAssert(ui, data, 4, "Hijk");
+		addLineAndAssert(ui, data, 5, "Defg");
 		
 		// perform a sort
 		cmdSort.processCommand("sort");
@@ -137,7 +77,7 @@ public class JUnitTextBuddyAtd {
 		cmdDisplay.processCommand("display");
 		
 		assertEquals(ui.getOutputAtLine(0), "1. 123");
-		assertEquals(ui.getOutputAtLine(1), "2. Abc");
+		assertEquals(ui.getOutputAtLine(1), "2. abc");
 		assertEquals(ui.getOutputAtLine(2), "3. Defg");
 		assertEquals(ui.getOutputAtLine(3), "4. Hijk");
 		assertEquals(ui.getOutputAtLine(4), "5. Zyx");
