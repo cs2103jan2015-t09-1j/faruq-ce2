@@ -39,13 +39,11 @@ public class TextBuddy {
 		// Exit program if file does not exist and user does not want to create it
 		if (!checkIfFileExistAndCreateIfDoesNot()) return;
 		
-		// Print welcome message
 		Util.printMessage("Welcome to TextBuddy. " + textFile.getName() + " is ready for use.");
 		
 		// Start command selector
 		commandSelector();
 		
-		// close input before exiting program
 		input.close();
 	}
 	
@@ -78,10 +76,9 @@ public class TextBuddy {
 		String cmd = "";
 		
 		while (true) {
-			// Print prompt
 			Util.printPrompt("command");
-			// Wait for command
 			
+			// Wait for command
 			cmd = input.nextLine();
 			
 			// Loop through command list to find matching command and process if it is
@@ -98,8 +95,6 @@ public class TextBuddy {
 		}
 	}
 	
-	// Usually, the code below should be in different files. But for the sake of the CE1 marking scheme, it's all in this file.
-	
 	// Command Interface
 	public static interface Command {
 		boolean processCommand(String cmd);
@@ -109,14 +104,16 @@ public class TextBuddy {
 	// (refer to Util class for implementation)
 	public static class CommandAddImpl implements Command {
 		
+		private static String commandStart = "add ";
+		
 		public CommandAddImpl() {
 		}
 
 		@Override
 		public boolean processCommand(String cmd) {
-			if (!cmd.startsWith("add ")) return false;
+			if (!cmd.startsWith(commandStart)) return false;
 			
-			String input = cmd.substring(4);
+			String input = cmd.substring(commandStart.length());
 			
 			try {
 				Util.appendFile(TextBuddy.textFile.toPath(), input);
@@ -134,12 +131,14 @@ public class TextBuddy {
 	// Clear file to empty state (refer to Util class)
 	public static class CommandClearImpl implements Command {
 		
+		private static String commandStart = "clear";
+		
 		public CommandClearImpl() {
 		}
 
 		@Override
 		public boolean processCommand(String cmd) {
-			if (!cmd.equals("clear")) return false;
+			if (!cmd.equals(commandStart)) return false;
 			
 			try {
 				Util.clearFile(TextBuddy.textFile.toPath());
@@ -158,12 +157,14 @@ public class TextBuddy {
 		
 		private static int INVALID_LINE_NUMBER = -1;
 		
+		private static String commandStart = "delete ";
+		
 		public CommandDeleteImpl() {
 		}
 
 		@Override
 		public boolean processCommand(String cmd) {
-			if (!cmd.startsWith("delete ")) return false;
+			if (!cmd.startsWith(commandStart)) return false;
 			
 			int lineToDelete = getLineNumberFromInput(cmd);
 			// if cannot get line number to delete because of invalid entry, return false
@@ -187,7 +188,7 @@ public class TextBuddy {
 		
 		private int getLineNumberFromInput(String cmd) {
 			try {
-				return Integer.parseInt(cmd.substring(7));
+				return Integer.parseInt(cmd.substring(commandStart.length()));
 			} catch (NumberFormatException e) {
 				Util.printError("No line specified.");
 				return INVALID_LINE_NUMBER;
@@ -200,12 +201,14 @@ public class TextBuddy {
 	// {lineNumber}. {line}
 	public static class CommandDisplayImpl implements Command {
 		
+		private static String commandStart = "display";
+		
 		public CommandDisplayImpl() {
 		}
 
 		@Override
 		public boolean processCommand(String cmd) {
-			if (!cmd.equals("display")) return false;
+			if (!cmd.equals(commandStart)) return false;
 			
 			try {
 				List<String> data = Util.readFile(TextBuddy.textFile.toPath());
@@ -233,12 +236,14 @@ public class TextBuddy {
 	// Exit program
 	public static class CommandExitImpl implements Command {
 		
+		private static String commandStart = "exit";
+		
 		public CommandExitImpl() {
 		}
 
 		@Override
 		public boolean processCommand(String cmd) {
-			if (!cmd.equals("exit")) return false;
+			if (!cmd.equals(commandStart)) return false;
 			
 			System.exit(0);
 			
